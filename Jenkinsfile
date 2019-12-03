@@ -14,7 +14,7 @@ pipeline {
 		stage ("Docker-Login") {
 			steps {
 				
-				sh 'docker login -u satyendrasingh -p Password@123'
+				sh 'docker login -u kiran437 -p Kiran@123'
 			}
 		}
 		stage ("Deleting-Previous-Docker-Builds"){
