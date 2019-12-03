@@ -34,9 +34,9 @@ pipeline {
 		stage ("Tagging-docker-images") {
 			steps {
 				
-				sh "docker tag search:0.${env.BUILD_ID} satyendrasingh/search:0.${env.BUILD_ID}"
+				sh "docker tag search:0.${env.BUILD_ID} kiran437/search:0.${env.BUILD_ID}"
 				
-				sh "docker tag website:0.${env.BUILD_ID} satyendrasingh/website:0.${env.BUILD_ID}"
+				sh "docker tag website:0.${env.BUILD_ID} kiran437/website:0.${env.BUILD_ID}"
 			}
 		}
 		stage ("Pushing-Images-to-Registry"){
