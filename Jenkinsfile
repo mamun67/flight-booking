@@ -42,9 +42,9 @@ pipeline {
 		stage ("Pushing-Images-to-Registry"){
 			steps {
 				
-				sh "docker push satyendrasingh/search:0.${env.BUILD_ID}"
+				sh "docker push kiran437/search:0.${env.BUILD_ID}"
 				
-				sh "docker push satyendrasingh/website:0.${env.BUILD_ID}"
+				sh "docker push kiran437/website:0.${env.BUILD_ID}"
 			}
 		}
 		stage('DeployToProduction') {
