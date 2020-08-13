@@ -10,12 +10,7 @@ pipeline {
 				
 				sh 'mvn -Dmaven.test.skip=true install'
 			}
-			script {
-                          timeout(time: 10, unit: 'MINUTES') {
-                              input(id: "Deploy Gate", message: "Deploy environment?", ok: 'Deploy')
-                              }
-                         }
-
+			
 		}
 		stage ("Docker-Login") {
 			steps {
