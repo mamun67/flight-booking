@@ -22,7 +22,8 @@ string(name:'username', defaultValue: 'user', description: 'Username of the user
 		stage ("Docker-Login") {
 			steps {
 				
-				sh 'docker login -u kiran437 -p Kiran@123'
+				sh 'aws ecr create-repository --repository-name $JOB_NAME'
+				sh '$(aws ecr get-login --no-include-email --region eu-west-1)'
 			}
 		}
 		stage ("Deleting-Previous-Docker-Builds"){
