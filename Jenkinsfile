@@ -22,7 +22,7 @@ string(name:'username', defaultValue: 'user', description: 'Username of the user
 		stage ("Docker-Login") {
 			steps {
 				
-				sh 'aws ecr create-repository --repository-name $JOB_NAME --region eu-west-1'
+				#sh 'aws ecr create-repository --repository-name $JOB_NAME --region eu-west-1'
 				sh 'aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 936422292136.dkr.ecr.eu-west-1.amazonaws.com'
 			}
 		}
