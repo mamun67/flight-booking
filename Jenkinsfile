@@ -6,7 +6,9 @@ pipeline {
 	}
 	stages {
 		stage("Maven-Build"){
-			script{
+			
+			steps {
+                              script{
 try {
     userInput = input(
         id: 'Proceed1', message: 'Was this successful?', parameters: [
@@ -17,12 +19,7 @@ try {
     userInput = false
     echo "Aborted by: [${user}]"
 }
-}
-
-			
-			
-			steps {
-				
+}				
 				sh 'mvn -Dmaven.test.skip=true install'
 			}
 			
