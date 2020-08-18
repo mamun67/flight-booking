@@ -16,7 +16,9 @@ try {
     def user = err.getCauses()[0].getUser()
     userInput = false
     echo "Aborted by: [${user}]"
-}node {
+}
+}
+node {
     if (userInput == true) {
         // do something
         echo "this was successful"
@@ -25,7 +27,6 @@ try {
         echo "this was not successful"
         currentBuild.result = 'FAILURE'
     } 
-}
 }
 			
 			
