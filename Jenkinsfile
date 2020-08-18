@@ -6,12 +6,12 @@ pipeline {
 	}
 	stages {
 		stage("Maven-Build"){
-def userInput
-try {
-    userInput = input(
-        id: 'Proceed1', message: 'Was this successful?', parameters: [
-        [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
-        ])
+                        def userInput
+                        try {
+                            userInput = input(
+                                id: 'Proceed1', message: 'Was this successful?', parameters: [
+                                [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
+                                ])
 } catch(err) { // input false
     def user = err.getCauses()[0].getUser()
     userInput = false
