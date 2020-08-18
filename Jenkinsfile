@@ -4,9 +4,11 @@ pipeline {
 		jdk 'JAVA_HOME'
 		maven 'M2_HOME'
 	}
+	
 	stages {
-		stage("Maven-Build"){
-                        def userInput
+		stage("test"){
+			steps {
+				def userInput
                         try {
                             userInput = input(
                                 id: 'Proceed1', message: 'Was this successful?', parameters: [
@@ -28,6 +30,10 @@ pipeline {
                                currentBuild.result = 'FAILURE'
                             } 
                         }
+			}
+		}
+		stage("Maven-Build"){
+                        
 			steps {
 				
 				sh 'mvn -Dmaven.test.skip=true install'
