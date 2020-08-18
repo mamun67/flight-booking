@@ -6,13 +6,35 @@ pipeline {
 	}
 	stages {
 		stage("Maven-Build"){
-			input{
+		/*	input{
 message "Press Ok to continue"
 submitter "user1,user2"
 parameters {
 string(name:'username', defaultValue: 'user', description: 'Username of the user pressing Ok')
 }
-			}
+			} */
+			def userInput
+try {
+    userInput = input(
+        id: 'Proceed1', message: 'Was this successful?', parameters: [
+        [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
+        ])
+} catch(err) { // input false
+    def user = err.getCauses()[0].getUser()
+    userInput = false
+    echo "Aborted by: [${user}]"
+}
+
+node {
+    if (userInput == true) {
+        // do something
+        echo "this was successful"
+    } else {
+        // do something else
+        echo "this was not successful"
+        currentBuild.result = 'FAILURE'
+    } 
+}
 			steps {
 				
 				sh 'mvn -Dmaven.test.skip=true install'
