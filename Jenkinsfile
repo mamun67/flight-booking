@@ -18,19 +18,9 @@ try {
     echo "Aborted by: [${user}]"
 }
 }
-node {
-    if (userInput == true) {
-        // do something
-        echo "this was successful"
-    } else {
-        // do something else
-        echo "this was not successful"
-        currentBuild.result = 'FAILURE'
-    } 
-}
+
 			
 			
-			}
 			steps {
 				
 				sh 'mvn -Dmaven.test.skip=true install'
