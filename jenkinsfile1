@@ -1,80 +1,43 @@
+// Define variable
+def myVariable = "${params.userFlag}"
+
+// Print variable
 pipeline {
-	agent any
+  agent any
 	tools {
 		jdk 'JAVA_HOME'
 		maven 'M2_HOME'
 	}
-	stages {
-		stage("Maven-Build"){
-			steps {
-				sh 'mvn -Dmaven.test.skip=true install'
-				echo "this was successful"
-			}
-			
-		}
-		stage ("Docker-Login") {
-			steps {
-			   			
-                              script{
-try {
-    userInput = input(
-        id: 'Proceed1', message: 'Was this successful?', parameters: [
-        [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
-        ])
-} catch(err) { // input false
-    def user = err.getCauses()[0].getUser()
-    userInput = false
-    echo "Aborted by: [${user}]"
-}
-}				
-				sh 'docker login -u kiran437 -p Kiran@123'
-			}
-		}
-
-		stage("Maven-Build1"){
-			steps {
-				sh 'mvn -Dmaven.test.skip=true install'
-				echo "this was successful"
-			}
-			
-		}
-		stage ("Deleting-Previous-Docker-Builds"){
-			steps {
-				
-				sh 'docker rmi -f "$(docker images -aq)"'
-			}
-		}
-		stage ("Docker-Build-Services") {
-			steps {
-				
-				sh "docker build -t search:0.${env.BUILD_ID} search/"
-				
-				sh "docker build -t website:0.${env.BUILD_ID} website/"
-			}
-		}
-		stage ("Tagging-docker-images") {
-			steps {
-				
-				sh "docker tag search:0.${env.BUILD_ID} kiran437/search:0.${env.BUILD_ID}"
-				
-				sh "docker tag website:0.${env.BUILD_ID} kiran437/website:0.${env.BUILD_ID}"
-			}
-		}
-		stage ("Pushing-Images-to-Registry"){
-			steps {
-				
-				sh "docker push kiran437/search:0.${env.BUILD_ID}"
-				
-				sh "docker push kiran437/website:0.${env.BUILD_ID}"
-			}
-		}
-		stage('DeployToProduction') {
-            		steps {
-                		kubernetesDeploy(
-                    			kubeconfigId: 'kubeconfig',
-                    			configs: 'flight-booking-kube.yml'
-                		)
-            		}
-        	}
-	}
+  stages {
+    stage ("s1") {
+    steps {
+                script {
+                    if ("${myVariable}" == "s1") {
+                        sh "mvn -Dmaven.test.skip=true install"
+                        echo "I only execute on the s1 branch"
+                    } 
+                }
+            }   
+    }
+	stage ("s2") {
+      steps {
+        script {
+                    if ("${myVariable}" == "s2") {
+                        sh 'mvn -Dmaven.test.skip=true install'
+                        echo 'I only execute on the s2 branch'
+                    } 
+                }
+      }
+    }
+	stage ("s3") {
+      steps {
+        script {
+                    if ("${myVariable}" == "s3") {
+                        sh 'mvn -Dmaven.test.skip=true install'
+                        echo 'I only execute on the s3 branch'
+                    } 
+                }
+      }
+    }
+  }
 }
