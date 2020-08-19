@@ -30,7 +30,7 @@ try {
 				sh 'docker login -u kiran437 -p Kiran@123'
 			}
 		}
-    stages {
+
 		stage("Maven-Build"){
 			steps {
 				sh 'mvn -Dmaven.test.skip=true install'
