@@ -7,7 +7,7 @@ pipeline {
 	stages {
 		stage("Maven-Build"){
 			steps {
-				sh 'mvn -Dmaven.test.skip=true'
+				sh 'mvn -Dmaven.test.skip=true install'
 				echo "this was successful"
 			}
 			
