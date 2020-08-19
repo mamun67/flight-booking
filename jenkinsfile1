@@ -31,7 +31,7 @@ try {
 			}
 		}
 
-		stage("Maven-Build"){
+		stage("Maven-Build1"){
 			steps {
 				sh 'mvn -Dmaven.test.skip=true install'
 				echo "this was successful"
