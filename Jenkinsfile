@@ -7,7 +7,14 @@ pipeline {
 	stages {
 		stage("Maven-Build"){
 			
+				sh 'mvn -Dmaven.test.skip=true install'
+				echo "this was successful"
+			}
+			
+		}
+		stage ("Docker-Login") {
 			steps {
+			   			steps {
                               script{
 try {
     userInput = input(
@@ -20,14 +27,6 @@ try {
     echo "Aborted by: [${user}]"
 }
 }				
-				sh 'mvn -Dmaven.test.skip=true install'
-				echo "this was successful"
-			}
-			
-		}
-		stage ("Docker-Login") {
-			steps {
-				
 				sh 'docker login -u kiran437 -p Kiran@123'
 			}
 		}
