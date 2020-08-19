@@ -21,6 +21,7 @@ try {
 }
 }				
 				sh 'mvn -Dmaven.test.skip=true install'
+				echo "this was successful"
 			}
 			
 		}
